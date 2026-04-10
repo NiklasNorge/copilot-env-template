@@ -1,32 +1,39 @@
 ---
 name: /sync-docs
-description: Check and update documentation for code changes, fix doc-code drift
+description: Check and update documentation when code changes, fix doc-code drift
 ---
 
-# Sync Docs
+# /sync-docs
 
-**What it does**: Detects documentation drift (docs out of sync with code), proposes updates, validates examples.
+**What it does**: Detects documentation drift (docs out of sync with code), proposes fixes, validates examples.
 
 **When to use**:
-- After code refactoring
-- Before merging
-- Documentation feels stale
-- Examples might be broken
+- After code refactoring or function changes
+- Before merging code changes
+- Documentation feels stale or examples are broken
+- You've changed function signatures, parameters, or behavior
 
 **Example usage**:
 
 ```
 /sync-docs
 
-Checking drift between code and docs
+Checking drift between code and docs...
 ```
 
-**Output you'll get**:
-- Detected drift issues (function signature changed, parameters renamed, etc.)
-- Broken examples identified
-- Proposed doc updates (with diffs)
-- Updated docstrings
-- Suggested README changes
-- Re-validated example code
+**What you'll get**:
+- Drift detection: Function signatures changed? Parameters renamed? Examples outdated?
+- Broken examples identified and fixed
+- Proposed documentation updates (copy-paste ready diffs)
+- Updated docstrings with parameter changes
+- Suggested README/example fixes with working code
+- Validation: "This example now produces: [output]"
 
-**This delegates to**: @DocsSync agent (drift detection), @CodeReviewer (code quality)
+**Typical flow**:
+1. You refactor a function
+2. Run `/sync-docs`
+3. Get back: "Found 3 doc drift issues" + proposed updates
+4. Apply the diffs, run tests
+5. Done
+
+**See also**: `@CodeReviewer` for code-quality review after doc updates

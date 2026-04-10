@@ -27,16 +27,14 @@ key_links:
 
 ## 🤖 Tools at Your Fingertip
 
-**5 Agents** (Copilot Chat):
-- `@DataQuality` — Validate data, write tests
-- `@NotebookOrganizer` — Restructure notebooks, extract functions
-- `@DocsSync` — Keep docs ↔ code aligned
-- `@CodeReviewer` — Code review + bug catch
-- `@ProjectScaffolder` — Bootstrap new projects
+**3 Specialist Agents** (Copilot Chat):
+- `@DataQuality` — Validate data, write quality tests, catch anomalies
+- `@CodeReviewer` — Structured code review with severity grading
+- `@ProjectScaffolder` — Bootstrap new projects (discovery → scaffold → handoff)
 
 **8 Slash Commands** (Type `/` in Chat):
-- `/analyze-data`, `/validate-pipeline`, `/organize-notebook`, `/sync-docs`
-- `/review-code`, `/test-this`, `/setup-project`, `/lesson`
+- `/setup-project`, `/analyze-data`, `/validate-pipeline`, `/review-code`
+- `/organize-notebook`, `/sync-docs`, `/test-this`, `/lesson`
 
 **Full reference**: [docs/AGENTS.md](../docs/AGENTS.md), [docs/PROMPTS.md](../docs/PROMPTS.md)
 

@@ -4,249 +4,197 @@ title: Agents Reference
 
 # Agents Reference
 
-This template includes 5 specialist agents, each with a clear role, trigger phrases, and delegation patterns.
+This template includes **3 specialist agents**, each with a clear, focused role.
 
 ---
 
-## 1. DataQuality Agent
+## 1. @DataQuality
 
-**Role**: Data validation, quality testing, debugging data issues.
+**Role**: Data validation, quality testing, debugging data anomalies.
 
 **When to invoke**:
-- "My pipeline has nulls in the ID column — how do I validate that?"
-- "Write quality checks for this dataset"
-- "Why is my data test failing?"
+- "Validate my pipeline output"
+- "Write tests for this transformation"
+- "My data has nulls where it shouldn't"
+- "Set up quality checks for this table"
 
 **What it does**:
-- Proposes inline assertions
-- Generates pytest fixtures for validation
+- Checks schema: structure, types, cardinality
+- Validates null/key integrity
+- Ensures idempotency (pipeline safe to run twice)
+- Generates pytest fixtures and assertions
 - Flags data quality anti-patterns
-- Suggests validators (pytest plugins, great_expectations)
+- Suggests test-first approach (RED-GREEN-REFACTOR)
+
+**Specialization**:
+- **Schema First**: Validates structure before data
+- **Aggressive Validation**: Null checks, uniqueness, row counts, business rules
+- **Testability Focus**: Everything is assertable and automatable
+- **NOT**: Exploratory analysis, visualizations, ad-hoc queries
 
 **Skills it uses**:
-- `data-quality-testing` - Validation patterns, fixtures, assertions
+- `data-quality-testing` - Assertions, pytest patterns, validators
+- `data-pipeline-tdd` - Test-first for data pipelines
 - `spark-pandas-best-practices` - Platform-specific validation
 
-**Delegates to**:
-- @NotebookOrganizer if validation logic should be extracted to `.py`
-- @CodeReviewer for quality review before merge
-- @DocsSync to document quality rules
-
 **Typical conversation**:
 ```
-You: "My data has nulls but I'm not checking for them"
-Agent: "Here's a validation approach:
-  1. Assert non-empty DataFrame
-  2. Check key columns for nulls
-  3. Add test fixtures
-  4. Run tests before pipeline"
+You: "Check my ETL output (Spark table with id, amount, date, status)"
+Agent: 
+  1. Asks: "Constraints? Unique id? Nulls allowed? Valid statuses?"
+  2. You answer
+  3. Agent generates:
+     - Assert schema
+     - Assert id is unique
+     - Assert no nulls in critical columns
+     - Assert date format
+     - pytest fixture with edge cases
+     - "Ready to run in CI/CD"
 ```
 
 ---
 
-## 2. NotebookOrganizer Agent
+## 2. @CodeReviewer
 
-**Role**: Restructure notebooks, extract functions, improve clarity.
-
-**When to invoke**:
-- "This notebook is 500 lines — help me organize it"
-- "Extract this repeated logic to a module"
-- "Cell dependencies are unclear"
-
-**What it does**:
-- Analyzes cell organization (order, dependencies)
-- Proposes cell reordering (imports → config → functions → execution)
-- Suggests functions to extract to `.py`
-- Refactors for clarity and reusability
-
-**Skills it uses**:
-- `notebook-as-code` - Extraction patterns, cell ordering
-- `data-pipeline-tdd` - Making logic testable
-
-**Delegates to**:
-- @DataQuality if extracted code needs validation
-- @CodeReviewer for code quality
-- @DocsSync to document extracted modules
-
-**Typical conversation**:
-```
-You: "This cell is 200 lines with lots of repeated logic"
-Agent: "I suggest:
-  1. Extract filter_active_orders() to src/transforms.py
-  2. Extract validate_orders() to src/validators.py
-  3. Import and use in notebook
-  4. Tests in tests/test_transforms.py"
-```
-
----
-
-## 3. DocsSync Agent
-
-**Role**: Keep documentation and code in sync, detect drift, propose updates.
-
-**When to invoke**:
-- "I refactored this function — update the docs?"
-- "Documentation feels outdated"
-- "Are these examples still accurate?"
-
-**What it does**:
-- Detects doc-code drift (signature changes, renamed parameters, broken examples)
-- Proposes documentation updates
-- Validates example code (doctest)
-- Updates README, docstrings, guides
-
-**Skills it uses**:
-- `auto-doc-sync` - Drift detection, update workflow
-- `markdown-notebook-docs` - Documentation templates
-
-**Delegates to**:
-- @CodeReviewer for code quality of examples
-- @NotebookOrganizer if notebook docs need restructuring
-
-**Typical conversation**:
-```
-You: "I changed the function signature — docs out of date?"
-Agent: "Detected drift:
-  1. Function now takes 3 params instead of 2
-  2. Return type changed
-  3. Examples reference old param names
-  
-Proposed updates:
-  - Update docstring with new signature
-  - Fix examples in README
-  - Run doctest to validate"
-```
-
----
-
-## 4. CodeReviewer Agent
-
-**Role**: Structured code review for Python and notebooks using severity grades.
+**Role**: Structured code review with severity grades.
 
 **When to invoke**:
 - "Review my code before I push"
 - "Is this efficient?"
-- "Did I miss anything?"
+- "Did I miss any edge cases?"
 
 **What it does**:
-- Checks correctness (logic, edge cases, types)
-- Flags performance issues (loops, memory, Spark shuffles)
-- Validates data quality checks
-- Reviews code standards (PEP 8, type hints, docstrings)
-- Tests coverage gaps
-- Grades severity: CRITICAL / MAJOR / MINOR / FYI
+- Checks **correctness**: Logic, edge cases, null handling, types
+- Flags **performance**: Vectorization, partitioning, memory leaks
+- Validates **standards**: PEP 8, type hints, docstrings, error handling
+- Reviews **maintainability**: Naming, single responsibility, extractability
+- Grades severity: **CRITICAL** (fix before merge) → **MAJOR** → **MINOR** → **FYI**
+
+**Specialization**:
+- **Narrow Focus**: Code review only (not testing suggestions, not docs, not reorganization)
+- **Consistent Stance**: Same checklist every time, no mood swings
+- **Default Reviewer**: Go-to for Python and notebook code quality
+- **NOT**: Suggesting test refactors (ask `@DataQuality`), reorganizing notebooks (use `/organize-notebook`), updating docs (use `/sync-docs`)
 
 **Skills it uses**:
 - `code-review-notebooks` - Review checklist, severity levels
-- `spark-pandas-best-practices` - Platform-specific performance
-- `data-quality-testing` - Quality validation
-
-**Delegates to**:
-- @NotebookOrganizer if code structure needs improvement
-- @DocsSync if docs/examples need updating
+- `spark-pandas-best-practices` - Platform-specific optimization
 
 **Typical conversation**:
 ```
-You: "Review this transform function"
-Agent: "Found issues:
-  ✗ CRITICAL: Row-by-row loop will be slow (100K rows)
-  ✗ MAJOR: Missing docstring
-  ✓ MINOR: Could extract discount constant
+You: "Review this transformation function"
+Agent:
+  ✗ CRITICAL: Row loop over 1M rows — vectorize with apply()
+  ✗ MAJOR: No error handling if column missing
+  ○ MINOR: Magic number 0.1 should be constant
+  ✓ FYI: Type hints suggested for clarity
   
-Fix CRITICAL before merge."
+  → Fix CRITICAL before merge
 ```
 
 ---
 
-## 5. ProjectScaffolder Agent
+## 3. @ProjectScaffolder
 
-**Role**: Meta-agent for bootstrapping new data engineering projects.
+**Role**: Entrypoint agent for bootstrapping new projects (orchestration only).
 
 **When to invoke**:
 - Starting a new data pipeline project
 - Using this template for the first time
-- "How do I set up a new project?"
+- "/setup-project" command
 
 **What it does**:
-1. Asks discovery questions:
-   - Data source? (CSV, DB, API, streaming)
-   - Transformations? (aggregation, dedup, enrichment)
-   - Output destination? (Lakehouse, file, API)
-   - Quality rules? (constraints, checks)
-   - Platform preference? (Pandas, Spark, Fabric, Databricks)
+1. **Discovery**: Asks 4-5 key questions about your project goal
+2. **Plan**: Summarizes requirements back to you
+3. **Scaffold**: Generates folder structure + starter code
+4. **Handoff**: "Now use `@DataQuality` for tests" or "`@CodeReviewer` for review"
 
-2. Generates:
-   - Complete folder structure
-   - Starter pipeline code (load_transform_store.py)
-   - Test fixtures and templates
-   - Quality validators
-   - README with setup instructions
-   - Customized pyproject.toml, Makefile
+**Specialization**:
+- **Orchestrator Only**: Bootstrap → handoff (not universal build-everything)
+- **Focused Scope**: Discovery → scaffold → delegate (not full implementation)
+- **Knows When to Stop**: Generates skeleton, hands off to specialists
+- **NOT**: Implementing full pipelines, debugging, organizing notebooks
 
-**Skills it uses**: All skills (synthesis mode)
+**Discovery Questions** (Always Asks):
+1. What's the data source? (CSV, DB, API, Spark, streaming?)
+2. What transformations? (filter, join, aggregate, pivot?)
+3. Where's the output? (Parquet, Lakehouse, database?)
+4. What defines success? (Row count, quality rules, refresh frequency?)
+5. Platform preference? (Local Python, PySpark, Fabric, Databricks?)
 
-**Delegates to**:
-- @DataQuality to finalize quality checks
-- @CodeReviewer to review generated code
-- @NotebookOrganizer if organizing exploratory work
+**Generates**:
+- Folder structure (src/, tests/, etc.)
+- Starter pipeline skeleton
+- Test fixtures and `conftest.py`
+- README with setup instructions
+- Customized `.github/copilot-instructions.md`
+
+**Skills it uses**:
+- `notebook-as-code` - Project structure patterns
+- `data-pipeline-tdd` - Test-first bootstrap patterns
 
 **Typical conversation**:
 ```
-Agent: "I'll help you set up a new project.
-Questions:
-1. What's your data source?
-2. What transformations needed?
-3. Output destination?
-...
-
-Generated:
-✓ Folder structure in project/
-✓ Starter pipeline: src/data/pipelines/main.py
-✓ Test fixtures: tests/conftest.py
-✓ Docs: README.md
-Next: Customize DATA-PLATFORM-GUIDE.md for your platform"
+User: "/setup-project"
+Agent: "Let's bootstrap your project."
+  "1. What's your data source?"
+  "2. What transformations?"
+  ...
+  
+Agent generates:
+  ✓ Folder structure
+  ✓ src/data/pipelines/main.py (skeleton)
+  ✓ tests/ (with fixtures)
+  ✓ README.md
+  
+  "Next: Customize pyproject.toml, then run `/validate-pipeline` 
+   to set up quality checks with @DataQuality"
 ```
 
 ---
 
-## Agent Coordination & Delegation
+## Agent Coordination
 
-### Typical Multi-Agent Flow
-
-**Scenario**: New feature in existing pipeline
+### Recommended Flow: New Feature
 
 1. **You** write code
-2. **@CodeReviewer** reviews for quality → finds issues
-3. **@CodeReviewer** delegates to @NotebookOrganizer (if structure issue)
-4. **NotebookOrganizer** refactors → extracts to `.py`
-5. **@DataQuality** reviews new code for validation
-6. **@DocsSync** updates README and docstrings
-7. Done! Ready to merge.
+2. **@CodeReviewer** reviews → suggests improvements
+3. **@DataQuality** adds/reviews quality checks
+4. **@CodeReviewer** final pass
+5. Done! Ready to merge
 
-### When to Call Each Agent
+### When to Use Each Agent
 
-| Question | Agent |
-|----------|-------|
-| "Is my data valid?" | @DataQuality |
-| "Organize this notebook" | @NotebookOrganizer |
-| "Docs out of date?" | @DocsSync |
-| "Review my code" | @CodeReviewer |
-| "Set up new project" | @ProjectScaffolder |
+| Question | Agent | Or Use Command |
+|----------|-------|-----------------|
+| "Validate my data?" | @DataQuality | `/validate-pipeline` |
+| "Review my code?" | @CodeReviewer | `/review-code` |
+| "Set up new project?" | @ProjectScaffolder | `/setup-project` |
+| "Organize this notebook?" | — | `/organize-notebook` |
+| "Docs out of date?" | — | `/sync-docs` |
+
+### When to Use Prompt Commands Instead
+
+- **`/organize-notebook`**: One-off task (restructure cells, extract functions)
+- **`/sync-docs`**: One-off task (detect drift, update docs)
+- **`/analyze-data`**: One-off task (explore dataset)
+- **`/test-this`**: One-off task (generate tests)
+- **`/lesson`**: Capture learnings
 
 ---
 
 ## Tips for Working with Agents
 
-1. **Be specific**: "Review my load_orders.py" (better than "review code")
-2. **Context**: Share file path or code snippet for faster analysis
+1. **Be specific**: "Review `src/data/load.py`" (better than "review code")
+2. **Share context**: Paste code or file paths for faster analysis
 3. **Iterate**: Ask follow-up questions; agents learn your preferences
-4. **Use skills**: Reference skills in your questions: "Per data-quality-testing skill, did I miss any assertions?"
-5. **Accept delegation**: If agent suggests another agent, follow their recommendation
+4. **Use skills**: Reference skills in your questions for more detail
+5. **Use Commands for bounded tasks**: `/organize-notebook` is faster than `@ProjectScaffolder` if you just need cell reordering
 
 ---
 
 ## See Also
 
-- [Slash Commands Reference](./PROMPTS.md) - Quick access to agent workflows
+- [Slash Commands Reference](./PROMPTS.md) - Quick commands for specific workflows
 - [Skills Library](./SKILLS.md) - Deep dive on each skill
-- [Lessons Log](../tasks/lessons.md) - Continuous improvement tracking
+- [Setup Guide](./SETUP.md) - Environment setup for agents

@@ -10,16 +10,16 @@ Type `/` in Copilot Chat and select one of these commands for quick-access workf
 
 ## Quick Command Matrix
 
-| Command | What It Does | When to Use | Agent |
-|---------|-------------|-----------|-------|
-| `/analyze-data` | Explore dataset, flag anomalies, suggest visualizations | New dataset investigation | @DataQuality |
-| `/validate-pipeline` | Check data quality, suggest assertions, run tests | Adding quality checks | @DataQuality |
-| `/organize-notebook` | Restructure cells, extract functions, improve readability | Notebook >300 lines | @NotebookOrganizer |
-| `/sync-docs` | Check doc-code drift, update docs, validate examples | After code refactoring | @DocsSync |
-| `/review-code` | Structured code review, severity-graded feedback | Before pushing code | @CodeReviewer |
-| `/test-this` | Generate test cases with fixtures, doctest-ready | Adding test coverage | @CodeReviewer |
-| `/setup-project` | Bootstrap new project with folder structure & starter code | New pipeline project | @ProjectScaffolder |
-| `/lesson` | Capture lesson learned, check patterns, suggest improvements | After fixing a bug/learning | Logging system |
+| Command | What It Does | When to Use |
+|---------|-------------|-----------|
+| `/analyze-data` | Explore dataset, flag anomalies, suggest visualizations | New dataset investigation |
+| `/validate-pipeline` | Check data quality, suggest assertions, run tests | Adding quality checks |
+| `/organize-notebook` | Restructure cells, extract functions, improve readability | Notebook >300 lines |
+| `/sync-docs` | Check doc-code drift, update docs, validate examples | After code refactoring |
+| `/review-code` | Structured code review, severity-graded feedback | Before pushing code |
+| `/test-this` | Generate test cases with fixtures, doctest-ready | Adding test coverage |
+| `/setup-project` | Bootstrap new project with folder structure & starter code | New pipeline project |
+| `/lesson` | Capture lesson learned, check patterns, suggest improvements | After fixing a bug/learning |
 
 ---
 
