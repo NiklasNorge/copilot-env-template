@@ -1,0 +1,68 @@
+# logs/
+.DS_Store
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv
+
+# IDE & editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Testing & coverage
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# Notebooks (local backups, not versioned)
+.ipynb_checkpoints/
+*-checkpoint.ipynb
+
+# Databricks/Fabric specific
+.databricks/
+.fabric/
+*.pem
+*.key
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Copilot session artifacts
+work/
+tasks/logs/
+logs/
+
+# Mac
+.DS_Store
+
+# Windows
+Thumbs.db
