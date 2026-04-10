@@ -1,11 +1,15 @@
+# Reference-only packaging/tooling template for generated projects.
+# This file describes the target project shape after scaffolding.
+# It is not intended as a publishable package definition for this bootstrap repo.
+
 [build-system]
 requires = ["setuptools>=61.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "data-engineering-template"
-version = "0.1.0"
-description = "Reference packaging and tooling config for generated data engineering projects"
+name = "generated-project-reference-config"
+version = "0.0.0"
+description = "Reference packaging and tooling config for generated projects (not for bootstrap repo publishing)"
 readme = "README.md"
 requires-python = ">=3.11"
 license = { text = "MIT" }

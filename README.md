@@ -1,8 +1,8 @@
-# Data Engineering Copilot Bootstrap Template
+# Data Engineering Copilot Bootstrap Reference
 
-A reusable Copilot bootstrap for solo data engineers working with Python, Polars, Microsoft Fabric, and Databricks.
+An opinionated Copilot bootstrap reference for Python notebook engineering on Microsoft Fabric and Databricks.
 
-This repository is metadata-first. Its primary purpose is to provide Copilot agents, prompts, instructions, and skills that you copy into a real project and then use to scaffold project structure and workflow behavior.
+This repository is metadata-first. Its primary purpose is to provide Copilot agents, prompt files, instructions, and skills that you copy into a real project and then use to scaffold project structure and workflow behavior.
 
 Python policy for generated projects: support Python 3.11+, prefer Python 3.12 by default.
 
@@ -17,6 +17,7 @@ Python policy for generated projects: support Python 3.11+, prefer Python 3.12 b
 - Not a prebuilt starter application
 - Not a repository with shipped `src/` and `tests/` trees
 - Not expected to pass app-level lint/test commands before you scaffold a target project
+- Not intended to be published as a Python package
 
 ## Quick Start
 
@@ -91,7 +92,12 @@ Prompt files in `.github/prompts/` use `*.prompt.md`.
 
 This repository includes `pyproject.toml`, `Makefile`, and `conftest.py` as reference assets.
 
-Treat them as examples for the project you generate. They are not evidence that this repository already contains a runnable application. If you want a generated project to be runnable immediately, copy and adapt those files after `/setup-project` creates the actual code layout.
+Treat them as examples for the project you generate. They are not evidence that this repository already contains a runnable application.
+
+Important:
+- `make test`, `make lint`, and related targets are for generated projects with `src/` and `tests/`
+- do not treat this bootstrap repo itself as the runtime target for those commands
+- copy/adapt the reference files after `/setup-project` creates the real project layout
 
 ## Resources
 
