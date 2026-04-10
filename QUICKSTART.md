@@ -24,15 +24,14 @@ git commit -m "Initial: Data engineering project with Copilot"
 ```bash
 # Copy everything from the template
 cp -r /path/to/copilot-env-template/.github ./
-cp /path/to/copilot-env-template/skills.md ./
 cp /path/to/copilot-env-template/.github/copilot-instructions.md ./
 
 # Create tasks folder if it doesn't exist
 mkdir -p tasks
-echo "# Lessons Log\n" > tasks/lessons.md
+echo "# Lessons Log" > tasks/lessons.md
 
 # Add to git
-git add .github/ skills.md tasks/lessons.md
+git add .github/ tasks/lessons.md
 git commit -m "feat: Add Copilot data engineering template"
 ```
 
@@ -59,20 +58,21 @@ key_links:
 
 **Keep the rest of the file as-is** (standards, conventions, folder structure).
 
-### Edit `skills/data-quality-testing/SKILL.md`
+### Edit `.github/skills/data-quality-testing/SKILL.md`
 
 Open and customize:
 - **Testing framework**: pytest ✅ (already set), or change to `great_expectations`
 - **Assertion patterns**: Replace generic examples with your actual quality rules
 - **Example schema**: Use your actual table schemas
 
-### Edit `skills/spark-pandas-best-practices/SKILL.md`
+### Edit `.github/skills/spark-pandas-best-practices/SKILL.md`
 
 Choose your platform:
-- **PySpark**: Uncomment Spark sections, comment out Pandas
-- **Pandas**: Uncomment Pandas sections, comment out Spark
+- **Polars (primary)**: Already optimized for Polars + Python runtime
+- **PySpark**: If needed for large datasets, customize Spark sections
+- **Pandas**: For legacy code compatibility
 
-*Keep data validation sections — those apply to both.*
+*Keep data validation sections — those apply to all.*
 
 ### Edit `docs/DATA-PLATFORM-GUIDE.md`
 
@@ -138,7 +138,7 @@ Requirements:
 - Load from [source: CSV/database/API]
 - Transform: [describe transformations]
 - Validate: [quality checks you need]
-- Output: [destination]
+- Outpuolars (primary) or PySpark (large distributed dataset
 Tech: PySpark (or Pandas)
 ```
 
@@ -177,17 +177,14 @@ my-data-project/
 │   ├── agents/                       (5 agents, ready to use)
 │   ├── instructions/                 (auto-loading per file type)
 │   ├── skills/                       (8 skills, with customized SKILL.md files)
-│   └── prompts/                      (8 slash commands)
-├── skills.md                         ✅ Ready (auto-discovered)
-├── tasks/
+│   tasks/
 │   └── lessons.md                    ✅ Empty (ready for lessons)
 ├── docs/
 │   ├── DATA-PLATFORM-GUIDE.md        ✅ CUSTOMIZED
 │   ├── AGENTS.md
 │   ├── SKILLS.md
 │   ├── PROMPTS.md
-│   ├── SETUP.md
-│   ├── PIPELINE-CATALOG.md
+│   ├── SETUPCATALOG.md
 │   └── DECISIONS.md
 ├── src/
 │   ├── data/
@@ -256,8 +253,8 @@ Copilot Chat → /analyze-data
 - [ ] Customized `skills/data-quality-testing/SKILL.md`
 - [ ] Customized `skills/spark-pandas-best-practices/SKILL.md`
 - [ ] Customized `docs/DATA-PLATFORM-GUIDE.md`
-- [ ] Reloaded VS Code
-- [ ] Tested an agent (should work)
+- [ ] Reloaded VS .github/skills/data-quality-testing/SKILL.md`
+- [ ] Customized `.github/ent (should work)
 - [ ] Tested a slash command (should work)
 - [ ] Created first pipeline OR logged first lesson
 - [ ] ✨ Ready to build!
@@ -286,9 +283,10 @@ Copilot Chat → /analyze-data
 
 ### Skills not loading?
 
-1. Verify: `skills.md` exists at repo root
-2. Check: Each skill folder has a `SKILL.md` file
-3. Fix: `skills.md` may have broken links — verify skill paths
+1. Verify: `.github/skills/` directory exists with skill folders
+2. Check: Each skill folder has a `SKILL.md` file (e.g., `.github/skills/data-quality-testing/SKILL.md`)
+3. Check: `docs/SKILLS.md` links to all skills for discovery
+4. Fix: Skills auto-load by context; ensure you're opening `.py` or `.ipynb` files
 
 ### Still stuck?
 
