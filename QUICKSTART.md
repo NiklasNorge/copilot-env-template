@@ -2,6 +2,8 @@
 
 This repository is a metadata-first bootstrap. You use it to install Copilot behavior into a real project, then let Copilot scaffold code and structure from there.
 
+Assume Python 3.11 compatibility and prefer Python 3.12 for local development unless your target runtime says otherwise.
+
 ## Step 1: Choose Your Bootstrap Mode
 
 ### Option A: Start A New Project From This Repo
@@ -148,7 +150,7 @@ Check that `.github/agents/` exists and reload VS Code.
 
 ### Commands do not appear
 
-Check that `.github/prompts/` contains the command files and type `/` in Copilot Chat to trigger suggestions.
+Check that `.github/prompts/` contains `*.prompt.md` files and type `/` in Copilot Chat to trigger suggestions.
 
 ### Instructions do not seem active
 
@@ -165,3 +167,4 @@ That is not the contract of this repository. Those are expected to be created by
 - [docs/PROMPTS.md](./docs/PROMPTS.md)
 - [docs/SKILLS.md](./docs/SKILLS.md)
 - [docs/DATA-PLATFORM-GUIDE.md](./docs/DATA-PLATFORM-GUIDE.md)
+- [docs/GOLDEN-PATH.md](./docs/GOLDEN-PATH.md)

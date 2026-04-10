@@ -12,9 +12,12 @@ The bootstrap repo itself is metadata-first. If you have not generated or added 
 
 ## Python Baseline
 
-- Python 3.9 or newer
+- Python 3.11 or newer
+- Prefer Python 3.12 for local development and new generated projects
 - Git
 - VS Code with GitHub Copilot and GitHub Copilot Chat
+
+Write code that stays compatible with Python 3.11+, but prefer 3.12-era style and standard-library usage unless a platform runtime requires otherwise.
 
 ---
 

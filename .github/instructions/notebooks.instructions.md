@@ -161,9 +161,9 @@ from notebookutils import mssparkutils
 
 ## Related Skills
 
-- **notebook-as-code**: Detailed extraction patterns
+- **python-notebook-structure**: Detailed extraction patterns
 - **data-quality-testing**: Validation in notebooks
-- **code-review-notebooks**: Review checklists
+- **python-notebook-code-review**: Review checklists
 
 ---
 
@@ -172,3 +172,4 @@ from notebookutils import mssparkutils
 - [pandas Documentation](https://pandas.pydata.org/)
 - [Databricks Notebooks](https://docs.databricks.com/notebooks/index.html)
 - [Microsoft Fabric Notebooks](https://learn.microsoft.com/en-us/fabric/data-engineering/how-to-use-notebook)
+

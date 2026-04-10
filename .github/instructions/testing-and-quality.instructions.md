@@ -274,7 +274,7 @@ def test_transform():
 
 - **data-quality-testing**: Detailed validation patterns
 - **data-pipeline-tdd**: RED-GREEN-REFACTOR workflow
-- **code-review-notebooks**: Code quality checks
+- **python-notebook-code-review**: Code quality checks
 
 ---
 
@@ -283,3 +283,4 @@ def test_transform():
 - [pytest Documentation](https://docs.pytest.org/)
 - [pandas Testing](https://pandas.pydata.org/docs/reference/testing.html)
 - [Test-Driven Development](https://en.wikipedia.org/wiki/Test-driven_development)
+

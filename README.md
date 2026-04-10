@@ -4,9 +4,11 @@ A reusable Copilot bootstrap for solo data engineers working with Python, Polars
 
 This repository is metadata-first. Its primary purpose is to provide Copilot agents, prompts, instructions, and skills that you copy into a real project and then use to scaffold project structure and workflow behavior.
 
+Python policy for generated projects: support Python 3.11+, prefer Python 3.12 by default.
+
 **What you get**
 - 3 specialist agents: Data Quality, Code Review, Project Scaffolding
-- 9 reusable skills covering validation, documentation, testing, notebooks, platform heuristics, and lessons learned
+- 10 reusable skills covering validation, documentation, testing, notebook structure, and platform-specific Fabric/Databricks heuristics
 - 8 slash commands for common workflows
 - Project-level instructions for Python, notebooks, testing, and Fabric/Databricks work
 - Reference `pyproject.toml`, `Makefile`, and `conftest.py` assets you can adapt in generated projects
@@ -52,6 +54,7 @@ Then customize:
 | [docs/SKILLS.md](./docs/SKILLS.md) | Skill catalog and customization guidance |
 | [docs/SETUP.md](./docs/SETUP.md) | Environment setup for the project you bootstrap |
 | [docs/DATA-PLATFORM-GUIDE.md](./docs/DATA-PLATFORM-GUIDE.md) | Fabric and Databricks guidance |
+| [docs/GOLDEN-PATH.md](./docs/GOLDEN-PATH.md) | End-to-end notebook-to-tested-pipeline workflow |
 | [tasks/lessons.md](./tasks/lessons.md) | Lessons log template |
 
 ## Agents And Commands
@@ -72,6 +75,8 @@ Then customize:
 - `/lesson`
 
 See [docs/AGENTS.md](./docs/AGENTS.md) and [docs/PROMPTS.md](./docs/PROMPTS.md) for details.
+
+Prompt files in `.github/prompts/` use `*.prompt.md`.
 
 ## How To Use This Template
 

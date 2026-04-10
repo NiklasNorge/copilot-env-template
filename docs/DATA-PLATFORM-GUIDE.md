@@ -6,6 +6,8 @@ title: Data Platform Guide
 
 This guide covers platform-specific patterns, cluster setup, and optimization for Microsoft Fabric and Databricks.
 
+Python baseline for generated projects: require compatibility with Python 3.11+, and prefer Python 3.12 where the platform runtime allows it.
+
 **SETUP REQUIRED**: Customize this for your chosen platform (Fabric, Databricks, or both equally).
 
 ---

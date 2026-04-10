@@ -1,93 +1,52 @@
-# Copilot Instructions for Data Engineering Projects
+# Copilot Instructions for Notebook Engineering
 
-**Ecosystem**: reusable Copilot bootstrap for data engineering projects  
-**Stack**: Python, Polars-first, Python runtime on Fabric or Databricks  
-**Scope**: metadata-first; use this file to steer Copilot before scaffolding code
+Opinionated bootstrap for Python notebook work on Microsoft Fabric and Databricks.
 
-<!-- CUSTOMIZE BEFORE FIRST USE -->
+## Baseline
 
----
+- Python compatibility floor: 3.11
+- Preferred style target: 3.12
+- Dataframe policy: Polars first, PySpark when distributed execution is required
 
-## First Steps
+## Project Setup
 
-1. Edit `project_name`, `tech_stack`, and `key_links` in the YAML below.
-2. Customize `docs/DATA-PLATFORM-GUIDE.md` for your environment.
-3. Run `/setup-project` to generate the real project structure in the target repository.
+Update this block before using the bootstrap:
 
 ```yaml
 project_name: "YOUR_PROJECT_NAME"
-tech_stack: [Python, Polars, "Python runtime on Fabric/Databricks"]
+platform: "Fabric or Databricks"
+tech_stack: [Python, Polars, PySpark]
 key_links:
   - "Wiki: [your-link]"
-  - "Data dictionary: [your-link]"
-  - "Docs: [your-link]"
+  - "Runbook: [your-link]"
 ```
 
----
+## Agents
 
-## Tools At Your Fingertip
-
-**3 Specialist Agents**
 - `@DataQuality`
 - `@CodeReviewer`
 - `@ProjectScaffolder`
 
-**8 Slash Commands**
-- `/setup-project`, `/analyze-data`, `/validate-pipeline`, `/review-code`
-- `/organize-notebook`, `/sync-docs`, `/test-this`, `/lesson`
+## Prompt Files
 
-Reference docs:
-- `docs/AGENTS.md`
-- `docs/PROMPTS.md`
+Prompt files live in `.github/prompts/` and use the `*.prompt.md` naming convention.
 
----
+## Auto-Loaded Instructions
 
-## Auto-Loading Context Rules
+- `python.instructions.md`
+- `notebooks.instructions.md`
+- `testing-and-quality.instructions.md`
+- `fabric.instructions.md`
+- `databricks.instructions.md`
 
-Context rules load when you open matching file types in the target project:
+## Skills
 
-| When You Open | Loads | For |
-|---------------|-------|-----|
-| `.py` files | `python.instructions.md` plus data engineering rules | style, imports, types |
-| `.ipynb` files | `notebooks.instructions.md` plus data engineering rules | cell organization, extraction |
-| `test_*.py` | `testing-and-quality.instructions.md` | TDD and pytest patterns |
-| Fabric or Databricks code | `fabric-and-databricks.instructions.md` | runtime and platform guidance |
-
----
-
-## Repository Role
-
-This repository ships Copilot metadata and reference assets.
-
-It does not guarantee that `src/` and `tests/` already exist. Those are expected to be generated or added after you use `/setup-project` in the target project.
-
-Reference assets included here:
-- `.github/agents/`
-- `.github/instructions/`
-- `.github/prompts/`
-- `.github/skills/`
-- `pyproject.toml`
-- `Makefile`
-- `conftest.py`
-
-Treat the Python tooling files as examples for the generated project, not as proof that this repository itself is a runnable app template.
-
----
+Skills live in `.github/skills/` and are used for deeper, task-specific workflows with optional helper assets.
 
 ## Navigation
 
-- Getting started: `QUICKSTART.md`
-- Skills and techniques: `docs/SKILLS.md`
-- Agent patterns: `docs/AGENTS.md`
-- Slash commands: `docs/PROMPTS.md`
-- Platform setup: `docs/SETUP.md` and `docs/DATA-PLATFORM-GUIDE.md`
-- Lessons log: `tasks/lessons.md`
-
----
-
-## Quick Help
-
-- How do I start? Use `/setup-project` or read `QUICKSTART.md`.
-- Which agent should I use? See `docs/AGENTS.md`.
-- Which command should I use? See `docs/PROMPTS.md`.
-- Which platform guidance applies? See `docs/DATA-PLATFORM-GUIDE.md`.
+- `QUICKSTART.md`
+- `docs/GOLDEN-PATH.md`
+- `docs/AGENTS.md`
+- `docs/PROMPTS.md`
+- `docs/SKILLS.md`

@@ -5,6 +5,8 @@ description: Auto-loads when you open any .py file
 
 # Python Coding Standards
 
+Assume Python 3.11+ compatibility and prefer Python 3.12-style code and standard-library usage.
+
 ## Quick Rules
 
 ✅ **DO**:
@@ -109,7 +111,7 @@ assert api_key, "API_KEY env var not set"
 
 - **polars-spark-pandas-patterns**: Optimization and engine selection for large datasets
 - **data-quality-testing**: Validation patterns
-- **notebook-as-code**: Extracting logic to `.py` modules
+- **python-notebook-structure**: Extracting logic to `.py` modules
 
 ---
 
@@ -118,3 +120,4 @@ assert api_key, "API_KEY env var not set"
 - [PEP 8](https://www.python.org/dev/peps/pep-0008/)
 - [NumPy Docstring Guide](https://numpydoc.readthedocs.io/en/latest/format.html)
 - [Black Formatter](https://github.com/psf/black)
+
