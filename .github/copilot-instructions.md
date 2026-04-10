@@ -1,18 +1,18 @@
 # Copilot Instructions for Data Engineering Projects
 
-**Ecosystem**: Reusable, portable Copilot setup for solo data engineers  
-**Stack**: Python, Polars (primary), Python runtime on Fabric/Databricks  
-**Auto-loads**: Context rules + skills per file type
+**Ecosystem**: reusable Copilot bootstrap for data engineering projects  
+**Stack**: Python, Polars-first, Python runtime on Fabric or Databricks  
+**Scope**: metadata-first; use this file to steer Copilot before scaffolding code
 
 <!-- CUSTOMIZE BEFORE FIRST USE -->
 
 ---
 
-## 🚀 First Steps (5 min)
+## First Steps
 
-1. Edit `project_name`, `tech_stack`, `key_links` in the YAML below
-2. Customize: `docs/DATA-PLATFORM-GUIDE.md` (your platform)
-3. Run `/setup-project` to auto-generate folder structure
+1. Edit `project_name`, `tech_stack`, and `key_links` in the YAML below.
+2. Customize `docs/DATA-PLATFORM-GUIDE.md` for your environment.
+3. Run `/setup-project` to generate the real project structure in the target repository.
 
 ```yaml
 project_name: "YOUR_PROJECT_NAME"
@@ -25,71 +25,69 @@ key_links:
 
 ---
 
-## 🤖 Tools at Your Fingertip
+## Tools At Your Fingertip
 
-**3 Specialist Agents** (Copilot Chat):
-- `@DataQuality` — Validate data, write quality tests, catch anomalies
-- `@CodeReviewer` — Structured code review with severity grading
-- `@ProjectScaffolder` — Bootstrap new projects (discovery → scaffold → handoff)
+**3 Specialist Agents**
+- `@DataQuality`
+- `@CodeReviewer`
+- `@ProjectScaffolder`
 
-**8 Slash Commands** (Type `/` in Chat):
+**8 Slash Commands**
 - `/setup-project`, `/analyze-data`, `/validate-pipeline`, `/review-code`
 - `/organize-notebook`, `/sync-docs`, `/test-this`, `/lesson`
 
-**Full reference**: [docs/AGENTS.md](../docs/AGENTS.md), [docs/PROMPTS.md](../docs/PROMPTS.md)
+Reference docs:
+- `docs/AGENTS.md`
+- `docs/PROMPTS.md`
 
 ---
 
-## 📋 Auto-Loading Context Rules
+## Auto-Loading Context Rules
 
-Context rules load automatically when you open specific file types:
+Context rules load when you open matching file types in the target project:
 
 | When You Open | Loads | For |
 |---------------|-------|-----|
-| `.py` files | `python.instructions.md` + data eng rules | Style, imports, types |
-| `.ipynb` files | `notebooks.instructions.md` + data eng rules | Cell org, extraction |
-| `test_*.py` | `testing-and-quality.instructions.md` | TDD, pytest patterns |
-| Databricks/Fabric | `fabric-and-databricks.instructions.md` | Python runtime + Polars |
-
-**Details**: `.github/instructions/` directory
+| `.py` files | `python.instructions.md` plus data engineering rules | style, imports, types |
+| `.ipynb` files | `notebooks.instructions.md` plus data engineering rules | cell organization, extraction |
+| `test_*.py` | `testing-and-quality.instructions.md` | TDD and pytest patterns |
+| Fabric or Databricks code | `fabric-and-databricks.instructions.md` | runtime and platform guidance |
 
 ---
 
-## 📁 Project Layout
+## Repository Role
 
-```
-PROJECT_ROOT/
-├── .github/
-│   ├── copilot-instructions.md    ← This file (root manifest)
-│   ├── agents/ + instructions/ + skills/ + prompts/
-├── docs/                          ← Guides: AGENTS, SKILLS, PROMPTS, SETUP, DATA-PLATFORM-GUIDE
-├── src/data/pipelines/            ← ETL code
-├── src/data/validators/           ← Quality checks
-├── src/notebooks/                 ← Analysis & reports
-├── tests/unit/ + tests/integration/
-└── pyproject.toml, Makefile, conftest.py
-```
+This repository ships Copilot metadata and reference assets.
 
-Run `/setup-project` to auto-generate `src/` + `tests/` structure.
+It does not guarantee that `src/` and `tests/` already exist. Those are expected to be generated or added after you use `/setup-project` in the target project.
 
----
+Reference assets included here:
+- `.github/agents/`
+- `.github/instructions/`
+- `.github/prompts/`
+- `.github/skills/`
+- `pyproject.toml`
+- `Makefile`
+- `conftest.py`
 
-## 📚 Navigation
-
-- **Getting Started**: [QUICKSTART.md](../QUICKSTART.md) or `/setup-project`
-- **Skills & Techniques**: [docs/SKILLS.md](../docs/SKILLS.md)
-- **Agent Patterns**: [docs/AGENTS.md](../docs/AGENTS.md)
-- **Slash Commands**: [docs/PROMPTS.md](../docs/PROMPTS.md)
-- **Platform Setup**: [docs/SETUP.md](../docs/SETUP.md) + [docs/DATA-PLATFORM-GUIDE.md](../docs/DATA-PLATFORM-GUIDE.md)
-- **Learn & Improve**: [tasks/lessons.md](../tasks/lessons.md)
+Treat the Python tooling files as examples for the generated project, not as proof that this repository itself is a runnable app template.
 
 ---
 
-## ❓ Quick Help
+## Navigation
 
-- **How do I start?** → `/setup-project` or [QUICKSTART.md](../QUICKSTART.md)
-- **I'm stuck** → Use `@DataQuality` or `@CodeReviewer` agents
-- **Platform questions?** → [docs/DATA-PLATFORM-GUIDE.md](../docs/DATA-PLATFORM-GUIDE.md)
-- **Which tool to use?** → [docs/SKILLS.md](../docs/SKILLS.md)
+- Getting started: `QUICKSTART.md`
+- Skills and techniques: `docs/SKILLS.md`
+- Agent patterns: `docs/AGENTS.md`
+- Slash commands: `docs/PROMPTS.md`
+- Platform setup: `docs/SETUP.md` and `docs/DATA-PLATFORM-GUIDE.md`
+- Lessons log: `tasks/lessons.md`
 
+---
 
+## Quick Help
+
+- How do I start? Use `/setup-project` or read `QUICKSTART.md`.
+- Which agent should I use? See `docs/AGENTS.md`.
+- Which command should I use? See `docs/PROMPTS.md`.
+- Which platform guidance applies? See `docs/DATA-PLATFORM-GUIDE.md`.

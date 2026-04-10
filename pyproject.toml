@@ -5,11 +5,11 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "data-engineering-template"
 version = "0.1.0"
-description = "Reusable Python data engineering project template"
+description = "Reference packaging and tooling config for generated data engineering projects"
 readme = "README.md"
 requires-python = ">=3.9"
-license = {text = "MIT"}
-authors = [{name = "Your Name", email = "you@example.com"}]
+license = { text = "MIT" }
+authors = [{ name = "Your Name", email = "you@example.com" }]
 keywords = ["data-engineering", "polars", "pyspark", "databricks", "fabric"]
 
 dependencies = [
@@ -22,6 +22,7 @@ dependencies = [
 dev = [
     "pytest>=7.0.0",
     "pytest-cov>=3.0.0",
+    "pytest-watch>=4.2.0",
     "black>=22.0.0",
     "ruff>=0.1.0",
     "mypy>=0.950",
@@ -50,11 +51,10 @@ where = ["src"]
 
 [tool.black]
 line-length = 100
-target-version = ['py38']
+target-version = ["py39"]
 include = '\.pyi?$'
 extend-exclude = '''
 /(
-  # directories
   \.eggs
   | \.git
   | \.hg
@@ -68,16 +68,16 @@ extend-exclude = '''
 
 [tool.ruff]
 line-length = 100
-target-version = "py38"
+target-version = "py39"
 select = [
-    "E",    # pycodestyle errors
-    "W",    # pycodestyle warnings
-    "F",    # Pyflakes
-    "I",    # isort
-    "C",    # flake8-comprehensions
-    "B",    # flake8-bugbear
+    "E",
+    "W",
+    "F",
+    "I",
+    "C",
+    "B",
 ]
-ignore = ["E501"]  # Line too long (Black handles this)
+ignore = ["E501"]
 
 [tool.isort]
 profile = "black"
@@ -90,7 +90,7 @@ ensure_newline_before_comments = true
 skip_glob = ["*/migrations/*"]
 
 [tool.mypy]
-python_version = "3.8"
+python_version = "3.9"
 warn_return_any = true
 warn_unused_configs = true
 disallow_untyped_defs = false

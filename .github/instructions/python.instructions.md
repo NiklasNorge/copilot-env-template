@@ -28,11 +28,11 @@ description: Auto-loads when you open any .py file
 """Module docstring: One-line purpose."""
 
 # Standard library
-import os
+
 import logging
 
 # Third-party
-import pandas as pd
+import polars as pl
 import numpy as np
 
 # Local
@@ -107,7 +107,7 @@ assert api_key, "API_KEY env var not set"
 
 ## Related Skills
 
-- **spark-pandas-best-practices**: Optimization for large datasets
+- **polars-spark-pandas-patterns**: Optimization and engine selection for large datasets
 - **data-quality-testing**: Validation patterns
 - **notebook-as-code**: Extracting logic to `.py` modules
 

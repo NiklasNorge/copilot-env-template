@@ -1,102 +1,98 @@
-# Data Engineering Copilot + Project Template 🚀
+# Data Engineering Copilot Bootstrap Template
 
-A **reusable, portable Copilot ecosystem** for solo data engineers working with Python, Polars, Microsoft Fabric, and Databricks.
+A reusable Copilot bootstrap for solo data engineers working with Python, Polars, Microsoft Fabric, and Databricks.
 
-**What You Get**:
-- ✅ 5 specialist agents (Data Quality, Notebooks, Docs Sync, Code Review, Project Setup)
-- ✅ 8 reusable skills (data validation, documentation, testing, notebook organization)
-- ✅ Lightweight governance (suggestions, no enforced gates)
-- ✅ Self-improving lessons log for capturing recurring patterns
-- ✅ Platform-aware guidance for Fabric & Databricks (Python runtime preferred)
-- ✅ Polars-first, Python runtime on cloud platforms
+This repository is metadata-first. Its primary purpose is to provide Copilot agents, prompts, instructions, and skills that you copy into a real project and then use to scaffold project structure and workflow behavior.
 
-**Use Case**: Build new data engineering projects faster by cloning this template, customizing 4 files, and inheriting the entire Copilot ecosystem.
+**What you get**
+- 3 specialist agents: Data Quality, Code Review, Project Scaffolding
+- 9 reusable skills covering validation, documentation, testing, notebooks, platform heuristics, and lessons learned
+- 8 slash commands for common workflows
+- Project-level instructions for Python, notebooks, testing, and Fabric/Databricks work
+- Reference `pyproject.toml`, `Makefile`, and `conftest.py` assets you can adapt in generated projects
 
----
+**What this repo is not**
+- Not a prebuilt starter application
+- Not a repository with shipped `src/` and `tests/` trees
+- Not expected to pass app-level lint/test commands before you scaffold a target project
 
-## 🚀 Quick Start
+## Quick Start
 
-**→ For a 10-minute step-by-step setup, see [QUICKSTART.md](./QUICKSTART.md)**
+For step-by-step setup, see [QUICKSTART.md](./QUICKSTART.md).
 
-For existing projects, copy `.github/` and customize:
+For an existing project, copy the Copilot metadata and the lessons log:
 
 ```bash
 cp -r /path/to/copilot-env-template/.github ./
-cp /path/to/copilot-env-template/.github/copilot-instructions.md ./.github/
-mkdir -p tasks && echo "# Lessons Log" > tasks/lessons.md
+mkdir -p tasks
+echo "# Lessons Log" > tasks/lessons.md
 ```
 
----
+PowerShell equivalent:
 
-## 📚 Documentation
+```powershell
+Copy-Item -Recurse C:\path\to\copilot-env-template\.github .github
+New-Item -ItemType Directory -Force tasks | Out-Null
+Set-Content tasks\lessons.md "# Lessons Log"
+```
 
-| File | Purpose |
+Then customize:
+- `.github/copilot-instructions.md`
+- `docs/DATA-PLATFORM-GUIDE.md`
+- Any skill files you want to tune for your team or platform
+
+## Repository Contents
+
+| Path | Purpose |
 |------|---------|
-| **[QUICKSTART.md](./QUICKSTART.md)** | 10-min setup guide: clone, customize, test |
-| **[.github/copilot-instructions.md](./.github/copilot-instructions.md)** | Root manifest (customize SETUP section) |
-| **[docs/AGENTS.md](./docs/AGENTS.md)** | What each agent does + delegation patterns |
-| **[docs/SKILLS.md](./docs/SKILLS.md)** | Deep-dive on 8 skills with examples |
-| **[docs/DATA-PLATFORM-GUIDE.md](./docs/DATA-PLATFORM-GUIDE.md)** | Fabric & Databricks specifics |
-| **[docs/SETUP.md](./docs/SETUP.md)** | Environment setup (Python, Databricks, Fabric) |
-| **[tasks/lessons.md](./tasks/lessons.md)** | Self-improvement log (auto-updated)
+| [QUICKSTART.md](./QUICKSTART.md) | Bootstrap flow for a new or existing project |
+| [.github/copilot-instructions.md](./.github/copilot-instructions.md) | Root manifest for the Copilot setup |
+| [docs/AGENTS.md](./docs/AGENTS.md) | Agent roles and handoff patterns |
+| [docs/PROMPTS.md](./docs/PROMPTS.md) | Slash command reference |
+| [docs/SKILLS.md](./docs/SKILLS.md) | Skill catalog and customization guidance |
+| [docs/SETUP.md](./docs/SETUP.md) | Environment setup for the project you bootstrap |
+| [docs/DATA-PLATFORM-GUIDE.md](./docs/DATA-PLATFORM-GUIDE.md) | Fabric and Databricks guidance |
+| [tasks/lessons.md](./tasks/lessons.md) | Lessons log template |
 
----
+## Agents And Commands
 
-## 🤖 Agents & Commands at a Glance
+**Agents**
+- `@DataQuality`
+- `@CodeReviewer`
+- `@ProjectScaffolder`
 
-**Agents**: `@DataQuality`, `@NotebookOrganizer`, `@DocsSync`, `@CodeReviewer`, `@ProjectScaffolder`
+**Commands**
+- `/setup-project`
+- `/analyze-data`
+- `/validate-pipeline`
+- `/organize-notebook`
+- `/sync-docs`
+- `/review-code`
+- `/test-this`
+- `/lesson`
 
-**Commands**: `/setup-project`, `/analyze-data`, `/validate-pipeline`, `/organize-notebook`, `/sync-docs`, `/review-code`, `/test-this`, `/lesson`
+See [docs/AGENTS.md](./docs/AGENTS.md) and [docs/PROMPTS.md](./docs/PROMPTS.md) for details.
 
-→ See **[docs/AGENTS.md](./docs/AGENTS.md)** and **[docs/PROMPTS.md](./docs/PROMPTS.md)** for details
+## How To Use This Template
 
----
+1. Copy `.github/` into a real project, or clone this repo as the starting point for a new project.
+2. Customize `.github/copilot-instructions.md` so Copilot sees your project name, stack, and links.
+3. Tune any skills that should reflect your platform conventions.
+4. Reload VS Code so Copilot picks up the metadata.
+5. Use `/setup-project` to scaffold `src/`, `tests/`, and starter code in the target project.
+6. Use the other agents and prompts to iterate on the generated project.
 
-## � Advanced: Model Context Protocol (MCP)
+## Reference Assets
 
-For integrating external systems (databases, APIs, calendars) with Copilot:
-- See [MCP Documentation](https://modelcontextprotocol.io/)
-- Copilot can now connect to data sources, tools, and workflows via MCP
-- **Future enhancement**: Consider MCP for live data validation or platform integration
+This repository includes `pyproject.toml`, `Makefile`, and `conftest.py` as reference assets.
 
----
+Treat them as examples for the project you generate. They are not evidence that this repository already contains a runnable application. If you want a generated project to be runnable immediately, copy and adapt those files after `/setup-project` creates the actual code layout.
 
-## 📖 Guides & Workflows
-
-**Getting Started**:
-- Clone/copy template → Customize 4 files → Reload VS Code (see [QUICKSTART.md](./QUICKSTART.md))
-
-**Common Workflow Examples**:
-
-1. **Start a new pipeline**: `@ProjectScaffolder` → Generates structure, code, tests
-2. **Validate data**: `@DataQuality` → Writes assertions + pytest fixtures
-3. **Test-driven development**: `/test-this` → Generates RED test, you write code, Copilot suggests REFACTOR
-4. **Keep docs in sync**: `@DocsSync` → Scans for drifts, proposes updates
-5. **Code review**: `@CodeReviewer` or `/review-code` → Structured feedback
-6. **Log lessons**: `/lesson` → Captures recurring patterns for future reference
-
----
-
-## 🔧 Local Setup
-
-```bash
-python -m venv venv
-source venv/bin/activate  # or venv\Scripts\activate on Windows
-pip install -e .
-make test                # or: pytest tests/
-make format             # or: black src/ tests/
-```
-
-See `Makefile` for all commands.
-
----
-
-## 🎓 Resources
+## Resources
 
 | Resource | Link |
 |----------|------|
 | GitHub Copilot Docs | [docs.github.com/copilot](https://docs.github.com/en/copilot) |
-| Awesome Copilot | [github.com/awesome-copilot](https://github.com/github/awesome-copilot) |
 | Databricks | [docs.databricks.com](https://docs.databricks.com/en/index.html) |
 | Microsoft Fabric | [learn.microsoft.com/fabric](https://learn.microsoft.com/en-us/fabric/) |
 | pytest | [docs.pytest.org](https://docs.pytest.org/) |

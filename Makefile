@@ -1,25 +1,22 @@
-# Common commands for data engineering projects
-# Usage: make [command] (e.g., make test, make lint)
+# Reference Makefile for generated data engineering projects.
+#
+# This file is included as a bootstrap asset. It becomes useful after
+# `/setup-project` or manual scaffolding creates `src/` and `tests/`.
 
-.PHONY: help install test lint format type-check clean run docs
+.PHONY: help install test test-quick test-watch test-unit test-integration lint format type-check clean dev check
 
 help:
-	@echo "Common commands:"
+	@echo "Reference commands for a generated project:"
 	@echo "  make install          - Install dependencies"
 	@echo "  make test             - Run tests with coverage"
 	@echo "  make test-quick       - Run tests without coverage"
 	@echo "  make test-watch       - Run tests in watch mode"
-	@echo "  make lint             - Run linters (ruff)"
-	@echo "  make format           - Format code with black + isort"
-	@echo "  make type-check       - Run type checker (mypy)"
-	@echo "  make clean            - Remove build artifacts"
+	@echo "  make lint             - Run ruff"
+	@echo "  make format           - Run black and isort"
+	@echo "  make type-check       - Run mypy"
+	@echo "  make clean            - Remove common Python build artifacts"
 	@echo ""
-	@echo "Data Engineering:"
-	@echo "  make validate         - Run data quality checks"
-	@echo "  make pipeline         - Run main ETL pipeline"
-	@echo ""
-	@echo "Documentation:"
-	@echo "  make docs             - Generate documentation"
+	@echo "Note: these targets assume a generated project with src/ and tests/."
 
 install:
 	pip install -e ".[dev]"
@@ -50,38 +47,10 @@ type-check:
 	mypy src/ --ignore-missing-imports
 
 clean:
-	find . -type f -name "*.pyc" -delete
-	find . -type d -name "__pycache__" -delete
-	find . -type d -name ".pytest_cache" -delete
-	find . -type d -name ".mypy_cache" -delete
-	find . -type d -name "*.egg-info" -delete
-	find . -type d -name ".coverage" -delete
-	find . -type d -name "htmlcov" -delete
-	find . -type d -name ".DS_Store" -delete
+	python -c "import pathlib, shutil; [p.unlink() for p in pathlib.Path('.').rglob('*.pyc')]; [shutil.rmtree(p, ignore_errors=True) for p in pathlib.Path('.').rglob('__pycache__')]; [shutil.rmtree(pathlib.Path(n), ignore_errors=True) for n in ['.pytest_cache','.mypy_cache','htmlcov'] if pathlib.Path(n).exists()]"
 
-# validate:
-# 	python -m src.data.validators.quality
-# Note: Uncomment after creating src/data/validators/quality.py via /setup-project
-
-# pipeline:
-# 	python -m src.data.pipelines.main
-# Note: Uncomment after creating src/data/pipelines/main.py via /setup-project
-
-# docs:
-# 	cd docs && python -m sphinx . _build/html
-# Note: Uncomment after installing sphinx (pip install sphinx)
-
-# Quick development cycle
 dev: format lint test-quick
-	@echo "✓ Development cycle complete"
+	@echo "Development cycle complete"
 
-# Full validation before push
 check: lint type-check test
-	@echo "✓ All checks passed - ready to push"
-
-# Docker (optional)
-docker-build:
-	docker build -t data-pipeline:latest .
-
-docker-run:
-	docker run -it data-pipeline:latest /bin/bash
+	@echo "All checks passed"

@@ -33,7 +33,7 @@ You are a **Data Quality enforcer** for data engineering projects. Your specialt
 ## Context You Have
 
 - **Codebase**: Data engineering project (Python, Polars or PySpark preferred)
-- **Skills Available**: `data-quality-testing`, `data-pipeline-tdd`, `spark-pandas-best-practices`
+- **Skills Available**: `data-quality-testing`, `data-pipeline-tdd`, `polars-spark-pandas-patterns`, `fabric-databricks-python-runtime`
 - **Standard**: Inline assertions + pytest fixtures + reusable validators
 - **Focus**: Catch data quality issues in automated tests, not production
 
@@ -75,7 +75,8 @@ When a user asks:
 
 - `data-quality-testing` — Assertions, pytest patterns, validators  
 - `data-pipeline-tdd` — TDD for data pipelines
-- `spark-pandas-best-practices` — Platform-specific validation
+- `polars-spark-pandas-patterns` — Dataframe engine choice and optimization
+- `fabric-databricks-python-runtime` — Platform-specific runtime heuristics
 
 **Focus**: Start with quick assertions; load full skill only if user asks for details.
 

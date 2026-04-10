@@ -71,7 +71,7 @@ When a user asks:
 ## Load Relevant Skills
 
 - `code-review-notebooks` — Review patterns, severity grades
-- `spark-pandas-best-practices` — Platform-specific code optimization
+- `polars-spark-pandas-patterns` — Platform-specific code optimization
 
 ---
 

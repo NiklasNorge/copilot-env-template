@@ -1,309 +1,167 @@
-# QUICKSTART: New Data Engineering Project — 10 Minutes ⚡
+# QUICKSTART: Bootstrap A New Data Engineering Project
 
-This guide walks you through setting up a new data engineering project using this template.
+This repository is a metadata-first bootstrap. You use it to install Copilot behavior into a real project, then let Copilot scaffold code and structure from there.
 
----
+## Step 1: Choose Your Bootstrap Mode
 
-## Step 1: Clone or Copy (2 min)
-
-### Option A: Start Fresh
+### Option A: Start A New Project From This Repo
 
 ```bash
 git clone https://github.com/NiklasNorge/copilot-env-template.git my-data-project
 cd my-data-project
-
-# Optional: Remove template history, start fresh
-rm -rf .git
-git init
-git add .
-git commit -m "Initial: Data engineering project with Copilot"
 ```
 
-### Option B: Add to Existing Project
+At this point you have the Copilot metadata and reference assets. You do not yet have a generated `src/` or `tests/` tree.
+
+### Option B: Add Copilot Metadata To An Existing Project
 
 ```bash
-# Copy everything from the template
 cp -r /path/to/copilot-env-template/.github ./
-cp /path/to/copilot-env-template/.github/copilot-instructions.md ./
-
-# Create tasks folder if it doesn't exist
 mkdir -p tasks
 echo "# Lessons Log" > tasks/lessons.md
-
-# Add to git
-git add .github/ tasks/lessons.md
-git commit -m "feat: Add Copilot data engineering template"
 ```
 
----
+PowerShell equivalent:
 
-## Step 2: Customize (4 min)
+```powershell
+Copy-Item -Recurse C:\path\to\copilot-env-template\.github .github
+New-Item -ItemType Directory -Force tasks | Out-Null
+Set-Content tasks\lessons.md "# Lessons Log"
+```
 
-### Edit `.github/copilot-instructions.md` — SETUP REQUIRED Section
+If you also want the reference project assets, copy these as needed:
+- `pyproject.toml`
+- `Makefile`
+- `conftest.py`
+- `docs/`
 
-Open the file and find the **SETUP REQUIRED** block (near the top). Fill in:
+## Step 2: Customize The Bootstrap Metadata
+
+### Edit `.github/copilot-instructions.md`
+
+Update the YAML block near the top:
 
 ```yaml
-project_name: "my-analytics-pipeline"          ← Your project name
-tech_stack:
-  - Python (core)
-  - "PySpark"                                   ← Choose: PySpark or Pandas
-  - "Databricks"                                ← Choose: Databricks or Fabric
-primary_focus:
-  - "Data pipelines"                            ← Your focus
+project_name: "my-analytics-pipeline"
+tech_stack: [Python, Polars, Databricks]
 key_links:
   - "Wiki: https://wiki.company.com/data"
-  - "Data dict: [link]"
+  - "Data dictionary: https://wiki.company.com/data-dictionary"
+  - "Runbook: https://wiki.company.com/runbook"
 ```
 
-**Keep the rest of the file as-is** (standards, conventions, folder structure).
+### Edit Skills You Intend To Rely On
 
-### Edit `.github/skills/data-quality-testing/SKILL.md`
+Common first edits:
+- `.github/skills/data-quality-testing/SKILL.md`
+- `.github/skills/polars-spark-pandas-patterns/SKILL.md`
+- `.github/skills/auto-doc-sync/SKILL.md`
 
-Open and customize:
-- **Testing framework**: pytest ✅ (already set), or change to `great_expectations`
-- **Assertion patterns**: Replace generic examples with your actual quality rules
-- **Example schema**: Use your actual table schemas
-
-### Edit `.github/skills/spark-pandas-best-practices/SKILL.md`
-
-Choose your platform:
-- **Polars (primary)**: Already optimized for Polars + Python runtime
-- **PySpark**: If needed for large datasets, customize Spark sections
-- **Pandas**: For legacy code compatibility
-
-*Keep data validation sections — those apply to all.*
+Adapt examples, quality rules, and platform-specific guidance to your environment.
 
 ### Edit `docs/DATA-PLATFORM-GUIDE.md`
 
-Add platform-specific details:
+Document the target platform details your team actually uses, such as:
+- Databricks cluster/runtime versions
+- Fabric Lakehouse conventions
+- Secret management patterns
+- Internal links and runbooks
 
-```markdown
-## Databricks Setup (if using Databricks)
-- **Cluster**: Python 3.10+, Spark 3.3+
-- **Catalog**: Use Unity Catalog with pattern: `workspace.schema.table`
-- **Config**: Store secrets in `utils/config.py`, fetch from Secrets API
-- **Example**: [link to your workspace wiki]
+## Step 3: Reload VS Code
 
-## Fabric Setup (if using Fabric)
-- **Lakehouse**: `/Shared/your_lakehouse`
-- **Default Schema**: `dbo` or custom
-- **Config**: Environment variables + Fabric SDK
-- **Example**: [link to your Fabric workspace]
-```
+Reload VS Code after copying and editing the metadata so Copilot reloads the `.github` configuration.
 
----
+## Step 4: Verify The Bootstrap Works
 
-## Step 3: Reload VS Code (30 sec)
+Success criteria for this repository are metadata-oriented:
 
-Close VS Code completely, then reopen your project. Copilot agents should now appear in the Copilot Chat dropdown.
+1. Copilot agents appear in chat.
+2. Slash commands appear when you type `/`.
+3. File-type instructions load when you open relevant files.
 
-```bash
-# Or restart VS Code: Ctrl+Shift+P → "Developer: Reload Window"
-```
+### Check Agents
 
----
+Expected agents in this repo:
+- `@DataQuality`
+- `@CodeReviewer`
+- `@ProjectScaffolder`
 
-## Step 4: Test It Works (2 min)
+### Check Commands
 
-### Test 1: Invoke an Agent
+Expected commands:
+- `/setup-project`
+- `/analyze-data`
+- `/validate-pipeline`
+- `/organize-notebook`
+- `/sync-docs`
+- `/review-code`
+- `/test-this`
+- `/lesson`
 
-1. Open Copilot Chat (Ctrl+L or Cmd+L)
-2. Look for the **agent** dropdown (top-left of chat)
-3. Select **@ProjectScaffolder**
-4. Type: `Create a folder structure for a daily ETL pipeline`
-5. ✅ Should respond with folder suggestions + sample code
+### Check File-Type Instructions
 
-### Test 2: Use a Slash Command
+Open a Python file in your target project and ask Copilot how it should be structured. It should reference the conventions in `.github/instructions/`.
 
-1. In Copilot Chat, type: `/setup-project`
-2. ✅ Should present setup wizard
+## Step 5: Scaffold The Real Project
 
-### Test 3: Check File-Type Instructions
+Use `@ProjectScaffolder` or `/setup-project` to generate the actual project structure.
 
-1. Create a new file: `src/data/sample_pipeline.py`
-2. Open it in VS Code
-3. In Copilot Chat, type: `How should I structure this file?`
-4. ✅ Should reference Python + data engineering conventions from `.github/instructions/`
+Example prompt:
 
----
+```text
+Create a new pipeline project.
 
-## Step 5: Create Your First Pipeline (Use as Template)
-
-In Copilot Chat, select `@ProjectScaffolder` and adapt this prompt:
-
-```
-Create a new pipeline for: [your data source]
 Requirements:
-- Load from [source: CSV/database/API]
-- Transform: [describe transformations]
-- Validate: [quality checks you need]
-- Outpuolars (primary) or PySpark (large distributed dataset
-Tech: PySpark (or Pandas)
+- Source: daily CSV export from S3
+- Transformations: deduplicate on order_id, standardize timestamps, derive processed_date
+- Output: parquet files in the analytics lakehouse
+- Quality checks: no nulls in order_id, valid status values, row count should not drop by more than 5 percent
+- Platform: Databricks with Python runtime
 ```
 
-Copilot will:
-1. Generate folder structure
-2. Create sample code (load → transform → validate → store)
-3. Generate pytest tests
-4. Suggest CI/CD setup
+Expected outcome:
+- Copilot proposes or generates `src/` and `tests/`
+- starter pipeline modules
+- test fixtures
+- validation patterns
+- setup guidance for the generated project
 
----
+## Step 6: Apply The Reference Assets
 
-## Step 6: Capture Your First Lesson (Optional but Recommended)
+After scaffolding the real project, decide which reference assets from this repo you want to adopt:
+- `pyproject.toml`
+- `Makefile`
+- `conftest.py`
+- `docs/SETUP.md`
 
-After your first successful pipeline or bug fix:
+These files are examples for generated projects. They are not meant to imply that this repository itself is already a runnable application.
 
-```
-Copilot Chat → /lesson
-```
+## Step 7: Capture Lessons
 
-Answer:
-- **Problem**: What went wrong? (or what was tricky?)
-- **Root Cause**: Why did it happen?
-- **Fix**: How did you solve it?
-- **Tags**: `pyspark`, `data-quality`, `notebooks`
+Use `/lesson` after you solve recurring problems or establish new patterns. Store those in `tasks/lessons.md` and use them to improve the skills over time.
 
-This logs to `tasks/lessons.md`. Later, patterns become new skills or rule amendments.
+## Troubleshooting
 
----
+### Agents do not appear
 
-## 📂 Your Project Structure (After Customization)
+Check that `.github/agents/` exists and reload VS Code.
 
-```
-my-data-project/
-├── .github/
-│   ├── copilot-instructions.md       ✅ CUSTOMIZED
-│   ├── agents/                       (5 agents, ready to use)
-│   ├── instructions/                 (auto-loading per file type)
-│   ├── skills/                       (8 skills, with customized SKILL.md files)
-│   tasks/
-│   └── lessons.md                    ✅ Empty (ready for lessons)
-├── docs/
-│   ├── DATA-PLATFORM-GUIDE.md        ✅ CUSTOMIZED
-│   ├── AGENTS.md
-│   ├── SKILLS.md
-│   ├── PROMPTS.md
-│   ├── SETUPCATALOG.md
-│   └── DECISIONS.md
-├── src/
-│   ├── data/
-│   │   ├── pipelines/
-│   │   ├── validators/
-│   │   └── fixtures/
-│   ├── notebooks/
-│   │   ├── exploratory/
-│   │   ├── reports/
-│   │   └── templates/
-│   └── utils/
-├── tests/
-├── pyproject.toml                    (ready to use)
-├── Makefile                          (ready: make test, make lint, etc.)
-└── .gitignore                        (ready)
-```
+### Commands do not appear
 
----
+Check that `.github/prompts/` contains the command files and type `/` in Copilot Chat to trigger suggestions.
 
-## 🚀 Next: Start Coding
+### Instructions do not seem active
 
-You're ready! Pick one:
+Check that `.github/instructions/` exists and open a matching file type such as `.py` or `.ipynb`.
 
-### 1. Build a Small Pipeline (10 min)
+### You expected `src/` or `tests/` to exist already
 
-```bash
-Copilot Chat → @ProjectScaffolder
+That is not the contract of this repository. Those are expected to be created by `/setup-project` or by copying the reference assets into your target project.
 
-"Create a simple ETL pipeline:
- - Read data from tests/data/sample.csv
- - Add a 'processed_date' column
- - Validate: no nulls in ID
- - Save to src/data/pipelines/transformed.csv"
-```
+## Further Reading
 
-### 2. Write Tests for an Existing Function
-
-```bash
-Copilot Chat → /test-this
-
-"Generate tests for: [paste function code]"
-```
-
-### 3. Organize & Refactor a Notebook
-
-```bash
-Copilot Chat → @NotebookOrganizer
-
-"Reorganize my notebook to separate Logic, Tests, and Execution"
-```
-
-### 4. Validate a Dataset
-
-```bash
-Copilot Chat → /analyze-data
-
-"Analyze tests/data/sample.csv and flag any anomalies"
-```
-
----
-
-## ✅ Checklist
-
-- [ ] Cloned/copied template
-- [ ] Customized `.github/copilot-instructions.md` (SETUP REQUIRED section)
-- [ ] Customized `skills/data-quality-testing/SKILL.md`
-- [ ] Customized `skills/spark-pandas-best-practices/SKILL.md`
-- [ ] Customized `docs/DATA-PLATFORM-GUIDE.md`
-- [ ] Reloaded VS .github/skills/data-quality-testing/SKILL.md`
-- [ ] Customized `.github/ent (should work)
-- [ ] Tested a slash command (should work)
-- [ ] Created first pipeline OR logged first lesson
-- [ ] ✨ Ready to build!
-
----
-
-## 🆘 Troubleshooting
-
-### Agents not appearing in Copilot Chat dropdown?
-
-1. Check: `.github/agents/` folder exists with `.md` files
-2. Verify: VS Code settings has `"chat.instructionsFilesLocations": [".github/instructions"]`
-3. Fix: Reload VS Code (`Ctrl+Shift+P` → Reload Window)
-
-### Instructions not loading when I open a `.py` file?
-
-1. Verify: `.github/instructions/python.instructions.md` exists
-2. Check: File path matches trigger pattern (e.g., `src/**/*.py`)
-3. Fix: Copilot may need a 30-sec delay; try reopening file
-
-### Slash commands not appearing?
-
-1. Check: `.github/prompts/` has the files you want
-2. Verify: File names match command you're typing (e.g., `/analyze-data` → `analyze-data.prompt.md`)
-3. Fix: Type `/` and wait for suggestions to populate
-
-### Skills not loading?
-
-1. Verify: `.github/skills/` directory exists with skill folders
-2. Check: Each skill folder has a `SKILL.md` file (e.g., `.github/skills/data-quality-testing/SKILL.md`)
-3. Check: `docs/SKILLS.md` links to all skills for discovery
-4. Fix: Skills auto-load by context; ensure you're opening `.py` or `.ipynb` files
-
-### Still stuck?
-
-- Check [docs/AGENTS.md](./docs/AGENTS.md)
-- Check [docs/SKILLS.md](./docs/SKILLS.md)
-- Open an issue on GitHub
-
----
-
-## 📖 Further Reading
-
-- **Full README**: [README.md](./README.md) — Overview & workflows
-- **Agents Guide**: [docs/AGENTS.md](./docs/AGENTS.md) — What each agent does
-- **Skills Guide**: [docs/SKILLS.md](./docs/SKILLS.md) — Deep-dive on each skill
-- **Platform Guide**: [docs/DATA-PLATFORM-GUIDE.md](./docs/DATA-PLATFORM-GUIDE.md) — Fabric & Databricks specifics
-- **Lessons Guide**: [tasks/lessons.md](../tasks/lessons.md) — Self-improvement workflow
-
----
-
-**You're all set! 🎉 Start your first pipeline now.**
+- [README.md](./README.md)
+- [docs/AGENTS.md](./docs/AGENTS.md)
+- [docs/PROMPTS.md](./docs/PROMPTS.md)
+- [docs/SKILLS.md](./docs/SKILLS.md)
+- [docs/DATA-PLATFORM-GUIDE.md](./docs/DATA-PLATFORM-GUIDE.md)

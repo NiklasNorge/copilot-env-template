@@ -96,7 +96,7 @@ def test_transform_creates_required_columns(sample_orders):
 | 1-10 GB | Fabric / Databricks | Either | Spark slightly better |
 | > 10 GB | Fabric / Databricks | Spark | Distributed processing |
 
-See **spark-pandas-best-practices** skill for optimization details.
+See **polars-spark-pandas-patterns** skill for optimization details.
 
 ---
 
@@ -156,7 +156,7 @@ logger.debug(f"Batch {batch_id}: {row_count} rows processed")
 
 ## Related Skills
 
-- **spark-pandas-best-practices**: Framework choice & optimization
+- **polars-spark-pandas-patterns**: Framework choice & optimization
 - **data-quality-testing**: Detailed validation patterns
 - **data-pipeline-tdd**: TDD for pipelines
 - **capture-data-eng-lessons**: Logging improvements

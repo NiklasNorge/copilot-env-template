@@ -252,7 +252,8 @@ def test_discount_applied(spark_session):
 
 ## Related Skills
 
-- **spark-pandas-best-practices**: Detailed Spark optimization
+- **polars-spark-pandas-patterns**: Detailed engine selection and optimization
+- **fabric-databricks-python-runtime**: Python-runtime-first platform heuristics
 - **data-quality-testing**: Data validation in Spark
 - **notebook-as-code**: Organizing Fabric/Databricks notebooks
 

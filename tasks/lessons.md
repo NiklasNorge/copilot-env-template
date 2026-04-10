@@ -84,7 +84,7 @@ Scan this log periodically (weekly/monthly) for patterns:
 → Suggest new rule or example
 
 **Pattern B: Specific to a tool/platform?**  
-→ Update relevant Skill (e.g., `spark-pandas-best-practices/SKILL.md`)  
+→ Update relevant Skill (e.g., `polars-spark-pandas-patterns/SKILL.md`)  
 → Add example to `examples/` folder
 
 **Pattern C: Self-improvement cycle?**  
